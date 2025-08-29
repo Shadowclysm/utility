@@ -1,0 +1,58 @@
+<div>
+
+    name
+    <input type="text">
+    <br>
+
+    input
+    <input type="text" class="base" [(ngModel)]="base" (keydown.enter)="set($event)">
+
+    <br>
+
+    change
+    <input type="text" class="delta" (keydown.enter)="changeTarget($event)">
+
+    <br>
+    <br>
+
+    <div>
+        <input type="button" class="run" [value]="updateRunButtonValue()" (click)="toggleRun()">
+
+        <input type="button" class="reset" value="reset" (click)="reset()">
+
+        <button (click)="remove.emit()"> remove </button>
+    </div>
+
+
+    <span style="font-size:50px;">
+
+    {{Math.trunc(target/3600) | number:'2.0-0'}}
+    :
+    {{Math.trunc(target/60)%60 | number:'2.0-0'}}
+    :
+    {{Math.trunc(target/1)%60 | number:'2.0-0'}}
+    </span>
+
+    <br>
+
+
+    <audio #audio >
+        <source src="assets/alert.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+    <div style="display:flex">
+        <p style="display:none">TODO: make this a button; low and mid volume icon 🔈 🔉 </p>
+        🔊
+        <input type="range" class="volume" min="0" max="1" step="0.1" value="1" (change)="changeVolume($event)">
+    </div>
+
+
+</div>
+
+
+<style>
+    input.run, input.reset {
+        width: 80px;
+        height: 30px;
+    }
+</style>
