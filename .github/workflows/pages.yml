@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DIST: dist/utility/browser
+  DIST: dist/utility-page/browser
   BASE_HREF: "/utility/"
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
           node-version: 20
           cache: 'npm'
       - run: npm ci
-      - run: npx ng build --configuration production --base-href "utility"
+      - run: npx ng build --configuration production --base-href "$BASE_HREF"
       - run: cp "$DIST/index.html" "$DIST/404.html"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
