@@ -6,13 +6,10 @@
 
     input
     <input type="text" class="base" [(ngModel)]="base" (keydown.enter)="set($event)">
+    <span title="input time in the hhmmss format or use the unit as a suffix, ie 10m&#013;prefix time with +/- to modify running timer">ℹ️</span>
 
     <br>
 
-    change
-    <input type="text" class="delta" (keydown.enter)="changeTarget($event)">
-
-    <br>
     <br>
 
     <div>
@@ -41,9 +38,10 @@
         Your browser does not support audio.
     </audio>
     <div style="display:flex">
-        <p style="display:none">TODO: make this a button; low and mid volume icon 🔈 🔉 </p>
-        🔊
-        <input type="range" class="volume" min="0" max="1" step="0.1" value="1" (change)="changeVolume($event)">
+        <span [hidden]="volume != 'high'" style="width:24px">🔊</span>
+        <span [hidden]="volume != 'med'" style="width:24px">🔉</span>
+        <span [hidden]="volume != 'low'" style="width:24px">🔈</span>
+        <input type="range" class="volume" min="0" max="1" step="0.1" value="1" (input)="changeVolume($event)">
     </div>
 
 

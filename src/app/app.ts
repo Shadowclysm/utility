@@ -11,7 +11,7 @@ import { Timer } from './timer/timer';
     templateUrl: './app.html',
     styleUrl: './app.css',
     standalone: true,
-    imports: [Timer],
+    imports: [],
 })
 export class App implements AfterViewInit {
     @ViewChild('list',{read:ViewContainerRef}) list !: ViewContainerRef;
