@@ -83,7 +83,7 @@ export class Timer {
         let volume = event["target"].valueAsNumber;
         this.audioRef.nativeElement.volume = volume;
         if(volume == 0) this.volume = "low";
-        else if(volume < .5) this.volume = "med";
+        else if(volume <= .5) this.volume = "med";
         else this.volume = "high";
     }
 

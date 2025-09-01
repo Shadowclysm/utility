@@ -1,56 +1,41 @@
-<div>
+<table class="container">
+    <td>
+        name
+        <input type="text">
+        <br>
 
-    name
-    <input type="text">
-    <br>
-
-    input
-    <input type="text" class="base" [(ngModel)]="base" (keydown.enter)="set($event)">
-    <span title="input time in the hhmmss format or use the unit as a suffix, ie 10m&#013;prefix time with +/- to modify running timer">ℹ️</span>
-
-    <br>
-
-    <br>
-
-    <div>
+        input
+        <input type="text" class="base" [(ngModel)]="base" (keydown.enter)="set($event)">
+        <span title="input time in the hhmmss format or use the unit as a suffix, ie 10m&#013;prefix time with +/- to modify running timer">ℹ️</span>
+    </td>
+    <td>
         <input type="button" class="run" [value]="updateRunButtonValue()" (click)="toggleRun()">
 
         <input type="button" class="reset" value="reset" (click)="reset()">
 
         <button (click)="remove.emit()"> remove </button>
-    </div>
 
+        <br>
 
-    <span style="font-size:50px;">
+        <audio #audio >
+            <source src="assets/alert.mp3" type="audio/mpeg">
+            Your browser does not support audio.
+        </audio>
+        <div style="display:flex">
+            <span [hidden]="volume != 'high'" style="width:24px">🔊</span>
+            <span [hidden]="volume != 'med'" style="width:24px">🔉</span>
+            <span [hidden]="volume != 'low'" style="width:24px">🔈</span>
+            <input type="range" class="volume" min="0" max="1" step="0.1" value="1" (input)="changeVolume($event)">
+        </div>
+    </td>
+    <td>
+        <span style="font-size:50px;">
+            {{Math.trunc(target/3600) | number:'2.0-0'}}
+            :
+            {{Math.trunc(target/60)%60 | number:'2.0-0'}}
+            :
+            {{Math.trunc(target/1)%60 | number:'2.0-0'}}
+        </span>
+    </td>
+</table>
 
-    {{Math.trunc(target/3600) | number:'2.0-0'}}
-    :
-    {{Math.trunc(target/60)%60 | number:'2.0-0'}}
-    :
-    {{Math.trunc(target/1)%60 | number:'2.0-0'}}
-    </span>
-
-    <br>
-
-
-    <audio #audio >
-        <source src="assets/alert.mp3" type="audio/mpeg">
-        Your browser does not support audio.
-    </audio>
-    <div style="display:flex">
-        <span [hidden]="volume != 'high'" style="width:24px">🔊</span>
-        <span [hidden]="volume != 'med'" style="width:24px">🔉</span>
-        <span [hidden]="volume != 'low'" style="width:24px">🔈</span>
-        <input type="range" class="volume" min="0" max="1" step="0.1" value="1" (input)="changeVolume($event)">
-    </div>
-
-
-</div>
-
-
-<style>
-    input.run, input.reset {
-        width: 80px;
-        height: 30px;
-    }
-</style>
