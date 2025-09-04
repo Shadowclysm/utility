@@ -19,11 +19,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class Timer {
     @ViewChild('audio') audioRef!: ElementRef<HTMLMediaElement>;
+    @ViewChild('input') inputRef!: ElementRef;
+    @ViewChild('display') displayRef!: ElementRef;
     @Output() remove = new EventEmitter();
-    //protected readonly title = signal('utility-page');
-    public Math = Math;
 
-    title:String = "";
+    public Math = Math;
     base:string = "10m";
     target:number = 0;
     timeoutID :number = 0;
@@ -48,13 +48,14 @@ export class Timer {
         }
     }
 
-    set(event:any){
-        // decide change vs new input here
-        if(event["target"].value.charAt(0) == "+" || event["target"].value.charAt(0) == "-"){
-            this.target += this.parseTime(event["target"].value);
+    set(){
+        let value = this.inputRef.nativeElement.value;
+
+        if(value.charAt(0) == "+" || value.charAt(0) == "-"){
+            this.target += this.parseTime(value);
             return;
         }
-        this.target = this.parseTime(event["target"].value);
+        this.target = this.parseTime(value);
 
         clearInterval(this.timeoutID);
         this.timeTracker = performance.now();
@@ -70,6 +71,7 @@ export class Timer {
         if(this.target < 1 && this.target % 10 == 0){
             this.audioRef.nativeElement.play();
         }
+        this.updateDisplayColor();
         this.timeoutID = setTimeout(() => {this.start()}, 1000-timeDelta);
     }
 
@@ -77,6 +79,12 @@ export class Timer {
         clearInterval(this.timeoutID);
         this.timeoutID = 0;
         this.target = this.parseTime(this.base);
+        this.updateDisplayColor();
+    }
+
+    updateDisplayColor(){
+        if(this.target < 0) this.displayRef.nativeElement.classList.add('alert');
+        else this.displayRef.nativeElement.classList.remove('alert');
     }
 
     changeVolume(event:any){

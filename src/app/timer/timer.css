@@ -1,5 +1,5 @@
 input.run, input.reset {
-    width: 80px;
+    width: 50%;
     height: 30px;
 }
 table.container {
@@ -9,5 +9,17 @@ table.container {
 td {
     vertical-align: middle;
     padding: 5px 20px;
+}
+.icon {
+    width: 24px;
+}
+.display{
+    font-size: 50px;
+}
+.alert{
+    color: color-mix(in srgb, CanvasText, #FF0000 50%);
+}
+.flex{
+    display: flex;
 }
 
