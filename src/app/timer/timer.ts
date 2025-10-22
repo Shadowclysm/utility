@@ -30,6 +30,9 @@ export class Timer {
     timeTracker :number = 0;
     volume:string = "high";
 
+    // settings
+    alertInterval:number = 30;
+
     toggleRun(){
         if(this.timeoutID == 0) {
             this.timeTracker = performance.now();
@@ -38,6 +41,7 @@ export class Timer {
             clearInterval(this.timeoutID);
             this.timeoutID = 0;
         }
+        this.updateDisplayColor();
     }
 
     updateRunButtonValue(){
@@ -68,11 +72,11 @@ export class Timer {
         this.timeTracker += 1000;
 
         this.target -= 1;
-        if(this.target < 1 && this.target % 10 == 0){
+        if(this.target < 1 && this.target % this.alertInterval == 0){
             this.audioRef.nativeElement.play();
         }
-        this.updateDisplayColor();
         this.timeoutID = setTimeout(() => {this.start()}, 1000-timeDelta);
+        this.updateDisplayColor();
     }
 
     reset(){
@@ -85,6 +89,9 @@ export class Timer {
     updateDisplayColor(){
         if(this.target < 0) this.displayRef.nativeElement.classList.add('alert');
         else this.displayRef.nativeElement.classList.remove('alert');
+
+        if(this.timeoutID == 0) this.displayRef.nativeElement.classList.add('pause');
+        else this.displayRef.nativeElement.classList.remove('pause');
     }
 
     changeVolume(event:any){

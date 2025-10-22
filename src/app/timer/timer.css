@@ -19,6 +19,12 @@ td {
 .alert{
     color: color-mix(in srgb, CanvasText, #FF0000 50%);
 }
+.pause{
+    color: color-mix(in srgb, CanvasText, #FFFF00 50%);
+}
+.alert.pause{
+    color: color-mix(in srgb, CanvasText, #FF7700 50%);
+}
 .flex{
     display: flex;
 }
